@@ -52,7 +52,11 @@ public class EcoPointsRecyclingTracker {
                     break;
                 case "6":
                     saveHouseholdsToFile();
+                    running = false;
+                    System.out.println("Data saved. GoodBye!");
                     break;
+                default:
+                    System.out.println("Invalid choice. Please select 1- 6");
 
             }
 
@@ -180,14 +184,17 @@ public class EcoPointsRecyclingTracker {
     public static void loadHouseholdsFromFile(){
         try{
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("households.ser"));
-            households = (Map<String,Household>) in.readObject();
+            households = (HashMap<String, Household>) in.readObject();
             System.out.println("Households loaded successfully");
 
         }catch (FileNotFoundException e){
             System.out.println("Households file not found");
         }
-        catch (IOException e){
+        catch (IOException  e){
             System.out.println("Error in loading Households from File "+e.getMessage());
+        }
+        catch (ClassNotFoundException ex){
+            System.out.println("Class not found "+ ex.getMessage());
         }
     }
 }
