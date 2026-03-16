@@ -14,7 +14,7 @@ public class EcoPointsRecyclingTracker {
 
 
         boolean running = true;
-        while(true){
+        while(running){
 
             System.out.println("\n=== Eco-Points ReCycling  Tracker ===");
             System.out.println("1. Register Household");
