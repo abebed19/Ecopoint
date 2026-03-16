@@ -35,6 +35,10 @@ public class Household {
         return total;
     }
 
+    public  void addEvent(RecyclingEvent event){
+        this.events.add(event);
+    }
+
 
 }
 

@@ -1,3 +1,4 @@
+import java.io.InvalidObjectException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -34,6 +35,13 @@ public class EcoPointsRecyclingTracker {
                     String address = scanner.nextLine();
                     registerHouseHold(id, name, address);
                     break;
+                case "2":
+                    logReccyclingEvent();
+                    break;
+                case "3":
+                    displayHouseholds();
+                    break;
+
 
             }
 
@@ -45,5 +53,82 @@ public class EcoPointsRecyclingTracker {
     private static void registerHouseHold(String id, String name, String address) {
         Household hld = new Household(id,name,address);
         households.put(id, hld);
+        System.out.println("Household registered successfully on "+ hld.getJoinDate());
+
+    }
+    private static void logReccyclingEvent(){
+        System.out.println("Enter household id:");
+        String id = scanner.nextLine().trim();
+
+        Household hld = households.get(id);
+        if (hld == null){
+            System.out.println("Household with id " + id + " not found");
+            return;
+        }
+
+        System.out.println("Enter material type(Plastic /glass/metal/paper");
+        String material = scanner.nextLine().trim();
+        double weight = 0.0;
+
+        while(true){
+            try{
+                System.out.println("Please enter weight in kilogram:");
+                weight = Double.parseDouble(scanner.nextLine());
+
+                if(weight <= 0) throw new IllegalArgumentException();
+                break;
+
+            }catch (NumberFormatException e){
+                System.out.println("Please enter valid weight");
+            }catch (IllegalArgumentException e){
+                System.out.println("Please enter valid weight");
+
+            }
+        }
+
+        RecyclingEvent event = new RecyclingEvent(material, weight);
+        hld.addEvent(event);
+        System.out.println("Event registered successfully on "+ hld.getJoinDate() );
+
+
+    }
+
+    public static void displayHouseholds(){
+        if(households.isEmpty()){
+            System.out.println("No Households found");
+            return;
+        }
+
+        for(Household h : households.values()){
+            System.out.println("ID : " + h.getID()+
+                    " ,Name: "+ h.getName()+
+                    " ,Address: "+ h.getAddress()+
+                    ", Joined: "+ h.getJoinDate()
+            );
+        }
+    }
+
+    public static void displayHousehold(){
+        System.out.println("Enter household id: ");
+        String id = scanner.nextLine().trim();
+
+        Household hld = households.get(id);
+        if(hld == null){
+            System.out.println("Household with id " + id + " not found");
+            return;
+        }
+
+        System.out.println("Recycling events for "+ hld.getName()+":" );
+        if(hld.getEvents().isEmpty()){
+            System.out.println("No Recycling events found");
+        }else{
+            for(RecyclingEvent e : hld.getEvents()){
+                System.out.println(e);
+            }
+            System.out.println("Total Weights: "+ hld.getTotalWeight());
+            System.out.println("Total Points: "+ hld.getTotalPoints());
+
+        }
+
     }
 }
