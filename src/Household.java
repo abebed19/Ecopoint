@@ -4,14 +4,14 @@ import java.util.List;
 
 public class Household {
 
-    private int ID;
+    private String ID;
     private String name;
     private String address;
     private LocalDate joinDate;
     private List<RecyclingEvent> events;
     private double totalPoints ;
 
-    public Household(int ID, String name, String address) {
+    public Household(String ID, String name, String address) {
         this.ID = ID;
         this.name = name;
         this.address = address;
@@ -20,7 +20,7 @@ public class Household {
         this.totalPoints = 0.0;
     }
 
-    public int getID(){return this.ID;}
+    public String getID(){return this.ID;}
     public String getName(){return this.name;}
     public String getAddress(){return this.address;}
     public LocalDate getJoinDate(){return this.joinDate;}
