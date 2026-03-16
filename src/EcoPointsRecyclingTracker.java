@@ -1,6 +1,8 @@
-import java.io.InvalidObjectException;
+import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class EcoPointsRecyclingTracker {
 
@@ -45,8 +47,12 @@ public class EcoPointsRecyclingTracker {
                 case "4":
                     displayHouseholdEvents();
                     break;
-
-
+                case "5":
+                    generateReports();
+                    break;
+                case "6":
+                    saveHouseholdsToFile();
+                    break;
 
             }
 
@@ -160,5 +166,28 @@ public class EcoPointsRecyclingTracker {
             totalWeight += h.getTotalWeight();
         }
         System.out.println("Total Community Recycling Weight: "+ totalWeight);
+    }
+    public  static void saveHouseholdsToFile(){
+        try{
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("households.ser"));
+            out.writeObject(households);
+
+        }catch (IOException e){
+            System.out.println("Error saving Households to file "+e.getMessage());
+        }
+    }
+    @SuppressWarnings("unchecked")
+    public static void loadHouseholdsFromFile(){
+        try{
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("households.ser"));
+            households = (Map<String,Household>) in.readObject();
+            System.out.println("Households loaded successfully");
+
+        }catch (FileNotFoundException e){
+            System.out.println("Households file not found");
+        }
+        catch (IOException e){
+            System.out.println("Error in loading Households from File "+e.getMessage());
+        }
     }
 }
