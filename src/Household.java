@@ -1,43 +1,40 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Household {
 
     private int ID;
     private String name;
     private String address;
-    private LocalDateTime joinDate;
+    private LocalDate joinDate;
+    private List<RecyclingEvent> events;
+    private double totalPoints ;
 
-    public Household(int ID, String name, String address, LocalDateTime joinDate) {
+    public Household(int ID, String name, String address) {
         this.ID = ID;
         this.name = name;
         this.address = address;
-        this.joinDate = joinDate;
+        this.joinDate = LocalDate.now();
+        this.events = new ArrayList<>();
+        this.totalPoints = 0.0;
     }
 
-    public int getID(){
-        return this.ID;
-    }
-    public String getName(){
-        return this.name;
-    }
-    public String getAddress(){
-        return this.address;
-    }
-    public LocalDateTime getJoinDate(){
-        return this.joinDate;
+    public int getID(){return this.ID;}
+    public String getName(){return this.name;}
+    public String getAddress(){return this.address;}
+    public LocalDate getJoinDate(){return this.joinDate;}
+    public List<RecyclingEvent> getEvents(){return this.events;}
+    public double getTotalPoints(){return this.totalPoints;}
+
+    public double getTotalWeight(){
+        double total = 0.0;
+        for(RecyclingEvent event : this.events){
+            total += event.getWeightInKillogram();
+        }
+        return total;
     }
 
-    public void setID(int ID){
-        this.ID = ID;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-    public void setAddress(String address){
-        this.address = address;
-    }
-    public void setJoinDate(LocalDateTime joinDate){
-        this.joinDate = joinDate;
-    }
+
 }
 

@@ -2,42 +2,39 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class RecyclingEvent {
-    private MaterialType materialType;
-    private double weightInKillogram;
+    private String materialType;
+    private double weight;
     private LocalDate recylceDate;
-    private int ecoPoints;
+    private Double totalPoints;
 
-    public RecyclingEvent(MaterialType type, double weightInKillogram, LocalDate recylceDate, int ecoPoints){
+    public RecyclingEvent(String type, double weight){
         this.materialType = type;
-        this.weightInKillogram = weightInKillogram;
-        this.recylceDate = recylceDate;
-        this.ecoPoints = ecoPoints;
+        this.weight = weight;
+        this.recylceDate = LocalDate.now();
+        this.totalPoints = this.weight * 10;
     }
-    private MaterialType getMaterialType() {
+    public String getMaterialType() {
         return this.materialType;
     }
-    private double getWeightInKillogram() {
-        return this.weightInKillogram;
+    public double getWeightInKillogram() {
+        return this.weight;
     }
-    private LocalDate getRecylceDate() {
+    public LocalDate getRecylceDate() {
         return this.recylceDate;
     }
-    private int getEcoPoints() {
-        return this.ecoPoints;
+    public double getEcoPoints() {
+        return this.totalPoints;
+    }
+    @Override
+    public String toString(){
+        return "Date:"+ this.recylceDate +
+                "\nMaterial Type: "+ this.materialType+
+                "\nWeight: "+ this.weight+
+                "\nTotal Points: "+ this.totalPoints;
+
     }
 
-    public  void setMaterialType(MaterialType materialType) {
-        this.materialType = materialType;
-    }
-    public void setWeightInKillogram(double weightInKillogram) {
-        this.weightInKillogram = weightInKillogram;
-    }
-    public void setRecylceDate(LocalDate recylceDate) {
-        this.recylceDate = recylceDate;
-    }
-    public void setEcoPoints(int ecoPoints) {
-        this.ecoPoints = ecoPoints;
-    }
+
 
 
 
